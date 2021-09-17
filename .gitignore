@@ -1,0 +1,11 @@
+.idea/
+
+# Default ignored files
+/shelf/
+/workspace.xml
+/misc.xml
+/modules.xml
+/vsc.xml
+/coding_test.iml
+
+*/**.iml
