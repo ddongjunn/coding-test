@@ -1,36 +1,28 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+package hello.core.order;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println(test(Integer.parseInt(br.readLine())));
+    public int solution(String str, char c){
+        int answer = 0;
+        str = str.toUpperCase();
+        c = Character.toUpperCase(c);
 
+//        for(int i=0; i<str.length(); i++){
+//            if(str.charAt(i) == c) answer++;
+//        }
+
+        for(char x : str.toCharArray()){
+            if(x == c) answer++;
+        }
+
+        return answer;
     }
+    public static void main(String[] args) throws Exception {
+        Main T = new Main();
+        Scanner sc = new Scanner(System.in);
+        String str = sc.next();
+        char c = sc.next().charAt(0);
 
-    public static int test(int N){
-        int cnt = 0; //한수 카운팅
-
-        if(N < 100){
-            return N;
-        }else{
-            cnt = 99;
-            if(N == 1000){
-                N = 999;
-            }
-        }
-
-        for(int i = 100; i <= N; i++){
-            int hun = i / 100;
-            int ten = (i / 10) % 10;
-            int one = i % 10;
-
-            if((hun - ten) == (ten - one)){ //각 자릿수가 수열을 이루면
-                cnt++;
-            }
-        }
-
-        return cnt;
+        System.out.println(T.solution(str, c));
     }
 }
