@@ -8,7 +8,7 @@ public class Main {
         for(int i=2; i<=N; i++){
             if(chk[i]==0){
                 answer++;
-                for(int j=i; j<=N; j=j+1){
+                for(int j=i; j<=N; j=j+i){
                     chk[j]=1;
                 }
             }
