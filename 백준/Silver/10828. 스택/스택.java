@@ -2,39 +2,39 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Main{
-    public static void solution(ArrayStack stack, String[] str){
-        switch(str[0]){
-            case "push":
-                stack.push(Integer.parseInt(str[1]));
-                break; 
-
-            case "top":
-                stack.top();
-                break;
-
-            case "size":
-                stack.size();
-                break;
-
-            case "empty":
-                stack.empty();
-                break;
-
-            case "pop":
-                stack.pop();
-                break;
-        }
-    }
+    
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         ArrayStack stack = new ArrayStack(N);
+        StringBuilder sb = new StringBuilder();
 
         for(int i=0; i<N; i++){
             String[] str = br.readLine().split(" ");
-            solution(stack, str);
+            
+            switch(str[0]){
+                case "push":
+                    stack.push(Integer.parseInt(str[1]));
+                    break; 
+    
+                case "top":
+                    sb.append(stack.top()).append('\n');
+                    break;
+    
+                case "size":
+                    sb.append(stack.size()).append('\n');
+                    break;
+    
+                case "empty":
+                    sb.append(stack.empty()).append('\n');
+                    break;
+    
+                case "pop":
+                    sb.append(stack.pop()).append('\n');
+                    break;
+            }
         }
-        
+        System.out.println(sb.toString());
     }
 }
 
@@ -53,31 +53,25 @@ class ArrayStack{
         stack[++top] = item;
     }
 
-    public void pop(){
-        if(top == -1){
-            System.out.println(-1);
-        }else{
-            int item = stack[top];
-            stack[top--] = 0;
-            System.out.println(item);
-        }
+    public int pop(){
+        if(top == -1) return -1;
+
+        int item = stack[top];
+        stack[top--] = 0;
+        return item;
     }
 
-    public void size(){
-        System.out.println(top+1);
+    public int size(){
+        return top+1;
     }
 
-    public void empty(){
-        if(top == -1) System.out.println(1);
-        else System.out.println(0);
+    public int empty(){
+        if(top == -1) return 1;
+        return 0;
     }
 
-    public void top(){
-        if(top == -1){
-            System.out.println(-1);
-        }else{
-            int item = stack[top];
-            System.out.println(item);
-        }
+    public int top(){
+        if(top == -1) return -1;
+        return stack[top];
     }
 }
