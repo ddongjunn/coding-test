@@ -27,14 +27,13 @@ public class Main{
         for(int i=0; i<N; i++){
             for(int j=0; j<N; j++){
                 if(matrix[i][j] == 1){
-                    count++;
                     matrix[i][j] = -1;
                     areas.add(bfs(i,j));
                 }
             }
         }
 
-        System.out.println(count);
+        System.out.println(areas.size());
         areas.stream().sorted().forEach(System.out::println);
     }
 
