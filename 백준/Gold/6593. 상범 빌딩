@@ -1,0 +1,102 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main{
+	static final int[] DZ = {-1,1,0,0,0,0};
+    static final int[] DX = {0,0,1,-1,0,0};
+    static final int[] DY = {0,0,0,0,1,-1};
+	
+	static int L,R,C;
+	static boolean escape = false;
+	static char[][][] map;
+	static boolean[][][] visit;
+	static Queue<Pos> q;
+    public static void main(String[] args) throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		while(true){
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			L = Integer.parseInt(st.nextToken());
+			R = Integer.parseInt(st.nextToken());
+			C = Integer.parseInt(st.nextToken());
+
+			if(L == 0 || R == 0 || C == 0){
+				break;
+			}
+
+			map = new char[L][R][C];
+			visit = new boolean[L][R][C];
+			q = new LinkedList<>();
+
+			for(int z=0; z<L; z++){
+				for(int x=0; x<R; x++){
+					String str = br.readLine();
+					for(int y=0; y<C; y++){
+						char ch = str.charAt(y);
+						map[z][x][y] = ch;
+
+						if(ch == '#'){
+							visit[z][x][y] = true;
+						}
+
+						if(ch == 'E'){
+							q.add(new Pos(z, x, y, 0));
+						}
+					}
+				}
+				br.readLine();
+			}
+
+			bfs();
+			if(!escape){
+				System.out.println("Trapped!");
+			}
+		}
+
+    }
+
+	static void bfs(){
+		while(!q.isEmpty()){
+			Pos pos = q.poll();
+			int cnt = pos.cnt;
+			for(int dir=0; dir<6; dir++){
+				int nz = pos.z + DZ[dir];
+				int nx = pos.x + DX[dir];
+				int ny = pos.y + DY[dir];
+
+				if(nz < 0 || nx < 0 || ny < 0 || nz >= L || nx >= R || ny >= C){
+					continue;
+				}
+
+				if(map[nz][nx][ny] == '.' && !visit[nz][nx][ny]){
+					q.add(new Pos(nz, nx, ny, pos.cnt + 1));
+					visit[nz][nx][ny] = true;
+				}
+
+				if(map[nz][nx][ny] == 'E'){
+					escape = true;
+					System.out.println("Escaped in "+cnt+" minute(s).");
+					q.clear();
+					break;
+				}
+			}
+		}
+	}
+}
+
+class Pos{
+	int z;
+	int x;
+	int y;
+	int cnt;
+
+	Pos(int z, int x, int y, int cnt){
+		this.z = z;
+		this.x = x;
+		this.y = y;
+		this.cnt = cnt;
+	}
+}
