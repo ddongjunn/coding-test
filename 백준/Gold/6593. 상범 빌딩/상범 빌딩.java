@@ -5,14 +5,13 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main{
+    static final int[] DX = {1, -1, 0, 0, 0, 0};
+    static final int[] DY = {0, 0, 1, -1, 0, 0};
+    static final int[] DZ = {0, 0, 0, 0, 1, -1};
 
-    static final int[] DX = {1,-1,0,0,0,0};
-    static final int[] DY = {0,0,1,-1,0,0};
-    static final int[] DZ = {0,0,0,0,1,-1};
     static int L, R, C;
     static char[][][] board;
     static boolean[][][] visit;
-    static int result = 0;
     static Queue<Pos> q;
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,11 +28,12 @@ public class Main{
             q = new LinkedList<>();
             board = new char[L][R][C];
             visit = new boolean[L][R][C];
+
             for(int z=0; z<L; z++){
                 for(int x=0; x<R; x++){
-                    String str = br.readLine();
+                    String line = br.readLine();
                     for(int y=0; y<C; y++){
-                        char ch = str.charAt(y);
+                        char ch = line.charAt(y);
                         board[z][x][y] = ch;
 
                         if(ch == '#'){
@@ -50,7 +50,7 @@ public class Main{
                 br.readLine();
             }
 
-            bfs();
+            int result = bfs();
             if(result > 0){
                 System.out.println("Escaped in " + result +" minute(s).");
             }else{
@@ -59,8 +59,7 @@ public class Main{
         }
     }
 
-    public static void bfs(){
-        result = 0;
+    public static int bfs(){
         while(!q.isEmpty()){
             Pos pos = q.poll();
 
@@ -78,14 +77,14 @@ public class Main{
                 }
 
                 if(board[nz][nx][ny] == 'E'){
-                    result = pos.cnt + 1;
-                    return;
+                    return pos.cnt + 1;
                 }
 
                 q.add(new Pos(nx, ny, nz, pos.cnt + 1));
                 visit[nz][nx][ny] = true;
             }
         }
+        return 0;
     }
 }
 
