@@ -14,8 +14,8 @@ public class Main{
     }
 
     public static long func(long a, long b, long m){
-        if(b == 1){
-            return a % m;
+        if(b == 0){
+            return 1;
         }
         long val = func(a, b / 2, m);
         val = val * val % m;
