@@ -28,7 +28,7 @@ public class Main{
         System.out.println(sb.toString());
     }
 
-    static void solution(int at, int depth){
+    static void solution(int start, int depth){
         if(depth == M){
             for(int i : outArr){
                 sb.append(i).append(" ");
@@ -37,7 +37,7 @@ public class Main{
             return;
         }
 
-        for(int i = at; i < N; i++){
+        for(int i = start; i < N; i++){
             if(!isVisited[i]){
                 isVisited[i] = true;
                 outArr[depth] = inArr[i];
