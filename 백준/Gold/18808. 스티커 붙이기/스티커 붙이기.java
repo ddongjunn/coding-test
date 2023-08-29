@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 public class Main{
     static int N, M, K, R, C;
     static int[][] note = new int[40][40];
-    static int[][] sticker = new int[11][11];
+    static int[][] sticker = new int[10][10];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -71,7 +71,7 @@ public class Main{
     }
 
     private static void rotate() {
-        int[][] tmp = new int[11][11];
+        int[][] tmp = new int[10][10];
         for(int i = 0; i < R; i++){
             for (int j = 0; j < C; j++){
                 tmp[i][j] = sticker[i][j];
