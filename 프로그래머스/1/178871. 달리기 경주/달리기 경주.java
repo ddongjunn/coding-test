@@ -7,19 +7,19 @@ class Solution {
         String[] answer = {};
         
         Map<String, Integer> map = new HashMap<>();
-        int rank = 0;
-        for(String player : players){
-           map.put(player, rank++); 
+        for(int rank = 0; rank < players.length; rank++){
+            map.put(players[rank], rank);
         }
         
         for(String player : callings){
-            int order = map.get(player);
-            map.put(player, map.get(player) - 1);
-            map.put(players[order - 1], map.get(players[order - 1]) + 1);
+            int rank = map.get(player);
             
-            String tmp = players[order - 1];
-            players[order - 1] = players[order];
-            players[order] = tmp;
+            String tmp = players[rank - 1];
+            players[rank - 1] = players[rank];
+            players[rank] = tmp;
+            
+            map.put(players[rank], rank);
+            map.put(players[rank - 1], rank - 1);
         }
         
         return players;
