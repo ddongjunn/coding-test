@@ -8,14 +8,10 @@ class Solution {
         
         for(int i = 0; i < s.length(); i++) {
             char word = s.charAt(i);
-            if(!map.containsKey(word)) {
-                answer[i] = -1;
-            } else {
-                answer[i] = i - map.get(word);
-            }
-            
+            answer[i] = i - map.getOrDefault(word, i + 1);
             map.put(word, i);
-        }
+        }   
+        
         return answer;
     }
 }
