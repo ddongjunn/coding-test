@@ -1,18 +1,11 @@
 class Solution {
     public String solution(int[] food) {
-        StringBuffer sb = new StringBuffer();
-        for(int i = 1; i < food.length; i++) {
-            int count = food[i] / 2;
-            for(int j = 0; j < count; j++){
-                sb.append(i);
+        String answer = "0";
+        for(int i = food.length - 1; i > 0; i--) {
+            for(int j = 0; j < food[i] / 2; j++) {
+                answer = i + answer + i;
             }
         }
-
-        String player1 = sb.toString();
-        String player2 = sb.reverse().toString();        
-        return new StringBuffer().append(player1)
-            .append(0)
-            .append(player2)
-            .toString();        
+        return answer;
     }
 }
