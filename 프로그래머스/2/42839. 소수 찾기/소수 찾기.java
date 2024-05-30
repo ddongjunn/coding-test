@@ -6,9 +6,7 @@ class Solution {
     public boolean visit[] = new boolean[7];
         
     public int solution(String numbers) {
-        for(int i = 0; i < numbers.length(); i++) {
-            dfs(numbers, "", i + 1);
-        }
+        dfs(numbers, "", numbers.length());
         return primes.size();
     }
     
