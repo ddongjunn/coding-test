@@ -1,53 +1,61 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main{
-    public static void main(String[] args) throws Exception{
+public class Main {
+    static final int[] dx = {0, 1, 0, -1};
+    static final int[] dy = {1, 0, -1, 0};
+
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        
-        int[][] board = new int[n][m];
-        boolean[][] visit = new boolean[n][m];
-        int[] dx = {1,0,-1,0};
-        int[] dy= {0,1,0,-1};
 
-        for(int i=0;i<n;i++){
-            st = new StringTokenizer(br.readLine(), " ");
-            for(int j=0;j<m;j++){
+        int[][] board = new int[n][m];
+        for(int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0; j < m; j++){
                 board[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        int mx = 0; //가장 넓은 그림의 넓이
-        int num = 0; //그림의 개수
+        boolean[][] visited = new boolean[n][m];
+        int mx = 0; // 넓이
+        int num = 0; // 그림 갯수
+        for(int i = 0; i < n; i++) {
+            for(int j = 0 ; j < m; j++) {
+                if(board[i][j] == 0 || visited[i][j]) {
+                    continue;
+                }
 
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                if(board[i][j] == 0 || visit[i][j]) continue;
-
+                Deque<Pos> q = new ArrayDeque<>();
+                q.add(new Pos(i, j));
+                visited[i][j] = true;
                 num++;
-                Queue<Pair> queue = new LinkedList<>();
-                queue.add(new Pair(i, j));
-                visit[i][j] = true;
+
                 int area = 0;
-
-                while(!queue.isEmpty()){
+                while(!q.isEmpty()) {
                     area++;
-                    Pair node = queue.poll();
-                    for(int dir=0; dir<4; dir++){
-                        int nx = node.x + dx[dir];
-                        int ny = node.y + dy[dir];
+                    Pos pos = q.poll();
+                    for(int dir = 0; dir < 4; dir++) {
+                        int nx = pos.x + dx[dir];
+                        int ny = pos.y + dy[dir];
 
-                        if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
-                        if(visit[nx][ny] || board[nx][ny] != 1) continue;
-                        
-                        visit[nx][ny] = true;
-                        queue.add(new Pair(nx, ny));
+                        if(nx < 0 || ny < 0 || nx >= n || ny >= m) {
+                            continue;
+                        }
+
+                        if(visited[nx][ny] || board[nx][ny] == 0) {
+                            continue;
+                        }
+
+                        q.offer(new Pos(nx, ny));
+                        visited[nx][ny] = true;
                     }
                 }
                 mx = Math.max(mx, area);
@@ -58,13 +66,11 @@ public class Main{
     }
 }
 
-class Pair{
+class Pos {
     int x;
     int y;
-    
-    Pair(int x, int y){
+    Pos(int x, int y) {
         this.x = x;
         this.y = y;
     }
 }
-
