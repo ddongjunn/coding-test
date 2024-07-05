@@ -8,15 +8,10 @@ class Solution {
         
         PriorityQueue<Integer> min = new PriorityQueue();
         for(int i = 0; i < score.length; i++) {
-            int cur = score[i];
-        
-            if(min.size() < k) {
-                min.offer(cur);
-            } else if (cur > min.peek()){
+            min.offer(score[i]);
+            if(min.size() > k){
                 min.poll();
-                min.offer(cur);
             }
-            
             answer[i] = min.peek();
         }
         return answer;
