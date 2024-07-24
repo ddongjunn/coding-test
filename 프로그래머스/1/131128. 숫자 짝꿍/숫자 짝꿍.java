@@ -12,9 +12,7 @@ class Solution {
 
         StringBuilder sb = new StringBuilder();
         for(int i = 9; i >= 0; i--) {
-            int commonCount = Math.min(arrayX[i], arrayY[i]);
-
-            for(int j = 0; j < commonCount; j++) {
+            for(int j = 0; j < Math.min(arrayX[i], arrayY[i]); j++) {
                 sb.append(i);
             }
         }
