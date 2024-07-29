@@ -15,11 +15,9 @@ class Solution {
                 return new int[]{person, cycle};
             }
 
-            if(usedWords.contains(word)) {
+            if(!usedWords.add(word)) {
                 return new int[]{person, cycle};
             }
-
-            usedWords.add(word);
         }
         return new int[]{0, 0};
     }
