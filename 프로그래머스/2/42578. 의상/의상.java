@@ -1,12 +1,16 @@
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
 
 class Solution {
     public int solution(String[][] clothes) {
-        return Stream.of(clothes)
-            .collect(Collectors.toMap(p -> p[1], p -> 1, Integer::sum))
-            .values()
-            .stream()
-            .reduce(1, (x, y) -> x * (y + 1)) - 1;
+        Map<String, Integer> map = new HashMap<>();
+        for (int i = 0; i < clothes.length; i++) {
+            map.put(clothes[i][1], map.getOrDefault(clothes[i][1], 0) + 1);
+        }
+        
+        int answer = 1;
+        for (int cnt : map.values()) {
+            answer *= cnt + 1;
+        }
+        return answer - 1;
     }
 }
