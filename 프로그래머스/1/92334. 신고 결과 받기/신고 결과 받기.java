@@ -1,41 +1,38 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
-        Map<String, Set<String>> userReports = new HashMap<>();
-        Map<String, Integer> reportCounts = Arrays.stream(id_list).collect(Collectors.toMap(id -> id, id -> 0));
-        Set<String> uniqueReports = new HashSet<>();
-        for(String rep : report) {
-            String[] parts = rep.split(" ");
-            String reporter = parts[0];
-            String reportedUser = parts[1];
-
-            if(uniqueReports.add(rep)) {
-                reportCounts.put(reportedUser, reportCounts.getOrDefault(reportedUser, 0) + 1);
-            }
-
-            userReports.computeIfAbsent(reporter, v -> new HashSet<>()).add(reportedUser);
+        Map<String, Integer> count = new HashMap<>();
+        Map<String, Set<String>> map = new HashMap<>();
+        for (int i = 0; i < id_list.length; i++) {
+            map.put(id_list[i], new HashSet<>());
+            count.put(id_list[i], 0);
         }
-
-        Set<String> stoppedIds = reportCounts.entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() >= k)
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
-
-        int[] answer = new int[id_list.length];
-        for(int i = 0; i < answer.length; i++) {
-            Set<String> ids = userReports.get(id_list[i]);
-            if(ids != null) {
-                for(String id : ids) {
-                    if(stoppedIds.contains(id)) {
-                        answer[i]++;
-                    }
+        
+        for (int i = 0; i < report.length; i++) {
+            String source = report[i].split(" ")[0];
+            String dest = report[i].split(" ")[1];
+            
+            Set destSet = map.get(source);
+            destSet.add(dest);
+        }
+        
+        for (int i = 0; i < id_list.length; i++) {            
+            for (String id : map.get(id_list[i])) {
+                count.put(id, count.get(id) + 1);
+            }
+        }
+    
+        int[] ans = new int[id_list.length];
+        for (int i = 0; i < id_list.length; i++) {
+            String source = id_list[i];
+            
+            for (String sources : map.get(source)) {
+                if (count.get(sources) >= k) {
+                    ans[i]++;
                 }
             }
         }
-        
-        return answer;
+        return ans;
     }
 }
