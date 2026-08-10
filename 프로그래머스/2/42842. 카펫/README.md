@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 72.3 MB, 시간: 0.01 ms
+메모리: 74.8 MB, 시간: 0.04 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 07월 01일 10:28:13
+2026년 08월 10일 18:35:09
 
 ### 문제 설명
 
@@ -61,7 +61,7 @@
 </tr>
 </tbody>
       </table>
-<p><a href="http://hsin.hr/coci/archive/2010_2011/contest4_tasks.pdf" target="_blank" rel="noopener" previewlistener="true">출처</a></p>
+<p><a href="http://hsin.hr/coci/archive/2010_2011/contest4_tasks.pdf" target="_blank" rel="noopener">출처</a></p>
 
 <p>※ 공지 - 2020년 2월 3일 테스트케이스가 추가되었습니다.<br>
 ※ 공지 - 2020년 5월 11일 웹접근성을 고려하여 빨간색을 노란색으로 수정하였습니다.</p>
