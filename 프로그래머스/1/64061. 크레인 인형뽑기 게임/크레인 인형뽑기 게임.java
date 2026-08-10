@@ -1,32 +1,27 @@
-import java.util.Deque;
-import java.util.ArrayDeque;
+import java.util.*;
 
 class Solution {
-    public int solution(int[][] board, int[] moves) {    
-        Deque<Integer> stack = new ArrayDeque<>();
-        
+    public int solution(int[][] board, int[] moves) {
         int answer = 0;
-        for(int move : moves) {
-            move = move - 1;
-            
-            for(int i = 0; i < board.length; i++) {
-                int doll = board[i][move];
+        Deque<Integer> bucket = new ArrayDeque<>();
+        for (int move : moves) {
+            int col = move - 1;
+
+            for (int row = 0; row < board.length; row++) {
+                int doll = board[row][col];
+                if (doll == 0) continue;
                 
-                if(doll != 0) {
-                    board[i][move] = 0;
-                    
-                    if(!stack.isEmpty() && stack.peek() == doll) {
-                        stack.pop();
-                        answer += 2;
-                    } else {
-                        stack.push(doll);
-                    }
-                    
-                    break;
+                if (!bucket.isEmpty() && bucket.peek() == doll) {
+                    answer += 2;
+                    bucket.pop();
+                } else {
+                    bucket.push(doll);
                 }
+                
+                board[row][col] = 0;
+                break;
             }
         }
-        
         return answer;
     }
 }
