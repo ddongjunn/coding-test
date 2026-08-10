@@ -1,16 +1,22 @@
 class Solution {
     public int solution(int[][] sizes) {
-        int maxWidth = 0;
-        int maxHeight = 0;
+        int answer = 0;
+        int row = 0;
+        int col = 0;
         
-        for (int[] size : sizes) {
-            int width = Math.max(size[0], size[1]);
-            int height = Math.min(size[0], size[1]);
+        //가로를 max 기준으로
+        for (int i = 0; i < sizes.length; i++) {
+            if (sizes[i][0] < sizes[i][1]) {
+                int tmp = sizes[i][1];
+                sizes[i][1] = sizes[i][0];
+                sizes[i][0] = tmp;
+            }
             
-            maxWidth = Math.max(maxWidth, width);
-            maxHeight = Math.max(maxHeight, height);
+            row = Math.max(row, sizes[i][0]);
+            col = Math.max(col, sizes[i][1]);
         }
         
-        return maxWidth * maxHeight;
+    
+        return row * col;
     }
 }
