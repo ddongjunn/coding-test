@@ -1,25 +1,18 @@
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
-    
-    static final char[] ALPHABET = {'A', 'E', 'I', 'O', 'U'};
-    static List<String> dictionary = new ArrayList<>();
-        
+    int count = 0;
+    int answer = 0;
     public int solution(String word) {
-        makeDic("");
-        return dictionary.indexOf(word);
+        dfs(word, "");
+        return answer;
     }
-
-    public void makeDic(String result){
-        if(result.length() == 6) {
-            return;
-        }
-
-        dictionary.add(result);
-
-        for (char c : ALPHABET) {
-            makeDic(result + c);
+    
+    public void dfs(String target, String current) {
+        if (current.length() > 5) return;
+        if (!current.equals("")) count++;
+        if (current.equals(target)) answer = count;
+        
+        for (char ch : "AEIOU".toCharArray()) {
+            dfs(target, current + ch);
         }
     }
 }
